@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
 from app.logger import app_logger
-from app.routers import auth_router
+from app.routers import auth_router, triage_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -25,6 +25,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router.router)
+app.include_router(triage_router.router)
 
 
 @app.get("/")
