@@ -1,0 +1,511 @@
+/* ================================
+   CareThread — Global Styles
+   ================================ */
+
+/* CSS Variables — change these to retheme the entire app */
+:root {
+    --primary: #0f4c4c;
+    --primary-light: #1a6b66;
+    --accent: #e8765c;
+    --accent-light: #fbe6e0;
+    --sage: #7a9b8e;
+    --sage-light: #e3ece8;
+    --cream: #faf7f2;
+    --white: #ffffff;
+    --charcoal: #2a2a28;
+    --gray: #6b6b67;
+    --border: #e6e0d6;
+    --shadow: 0 2px 8px rgba(15, 76, 76, 0.08);
+    --shadow-lg: 0 8px 24px rgba(15, 76, 76, 0.12);
+    --radius: 10px;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ── Typography ── */
+h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    font-weight: 600;
+}
+
+p {
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ── Layout ── */
+.page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+.page-wide {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Navbar ── */
+.navbar {
+    background: var(--primary);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .brand {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.navbar nav a {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar .btn-logout {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.navbar .btn-logout:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* ── Cards ── */
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+}
+
+/* ── Buttons ── */
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    transition: all 0.15s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-light);
+}
+
+.btn-primary:disabled {
+    background: var(--border);
+    color: var(--gray);
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: var(--sage-light);
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--accent);
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0.3rem 0;
+}
+
+.btn-danger:hover {
+    text-decoration: underline;
+}
+
+/* ── Forms ── */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.4rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: white;
+    color: var(--charcoal);
+    transition: border-color 0.15s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(26, 107, 102, 0.1);
+}
+
+/* ── Role toggle ── */
+.role-toggle {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: white;
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.role-btn.active {
+    border-color: var(--primary);
+    background: var(--sage-light);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ── Urgency banners ── */
+.urgency-banner {
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    border-left: 5px solid;
+    margin-bottom: 1.25rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.urgency-EMERGENCY {
+    background: #fbe6e0;
+    border-color: #e8765c;
+}
+
+.urgency-URGENT {
+    background: #faf0dc;
+    border-color: #d99a3d;
+}
+
+.urgency-ROUTINE {
+    background: var(--sage-light);
+    border-color: var(--sage);
+}
+
+.urgency-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.urgency-EMERGENCY .urgency-label { color: #b8472f; }
+.urgency-URGENT .urgency-label { color: #9c6b1f; }
+.urgency-ROUTINE .urgency-label { color: #3f6358; }
+
+.urgency-specialty {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--charcoal);
+}
+
+/* ── Symptom chips ── */
+.symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.symptom-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background: white;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.symptom-chip:hover {
+    border-color: var(--sage);
+}
+
+.symptom-chip.selected {
+    border-color: var(--primary);
+    background: var(--sage-light);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.symptom-chip input[type="checkbox"] {
+    width: auto;
+    accent-color: var(--primary);
+}
+
+/* ── Doctor cards ── */
+.doctor-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.3rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+    margin-bottom: 0.75rem;
+    transition: box-shadow 0.15s;
+}
+
+.doctor-card:hover {
+    box-shadow: var(--shadow);
+}
+
+.doctor-name {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.2rem;
+}
+
+.doctor-specialty {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+/* ── Slot grid ── */
+.slot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.slot-btn {
+    padding: 0.55rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--charcoal);
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.slot-btn:hover {
+    border-color: var(--primary);
+}
+
+.slot-btn.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ── Appointment cards ── */
+.appt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.3rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+    margin-bottom: 0.75rem;
+}
+
+.appt-with {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.2rem;
+}
+
+.appt-time {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+.status-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+}
+
+.status-booked {
+    background: var(--sage-light);
+    color: #3f6358;
+}
+
+.status-cancelled {
+    background: #f0ebe3;
+    color: var(--gray);
+}
+
+.status-completed {
+    background: #e3ece8;
+    color: var(--primary);
+}
+
+/* ── Error box ── */
+.error-box {
+    background: #fbe6e0;
+    color: #b8472f;
+    padding: 0.75rem 1rem;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    margin-top: 1rem;
+    display: none;
+}
+
+/* ── Empty state ── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--gray);
+}
+
+/* ── Stats row ── */
+.stats-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+}
+
+/* ── Utility ── */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85rem; }
+.text-gray { color: var(--gray); }
+.divider { height: 1px; background: var(--border); margin: 1.5rem 0; }

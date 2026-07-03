@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareThread — Sign In</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        .auth-container {
+            max-width: 420px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .brand-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+        .brand-header p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        .tab-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.65rem;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            background: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            color: var(--gray);
+            transition: all 0.15s;
+        }
+        .tab-btn.active {
+            border-color: var(--primary);
+            background: var(--sage-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+
+    <div class="brand-header">
+        <h1>CareThread</h1>
+        <p>Symptom triage and doctor booking in one place</p>
+    </div>
+
+    <div class="card">
+
+        <!-- Tab switcher -->
+        <div class="tab-row">
+            <button class="tab-btn active" id="tabLogin" onclick="showTab('login')">Sign In</button>
+            <button class="tab-btn" id="tabRegister" onclick="showTab('register')">Create Account</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;" id="loginBtn">
+                Sign In
+            </button>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form id="registerForm" style="display:none;" onsubmit="handleRegister(event)">
+
+            <div class="role-toggle">
+                <button type="button" class="role-btn active" id="rolePatient" onclick="setRole('patient')">
+                    Patient
+                </button>
+                <button type="button" class="role-btn" id="roleDoctor" onclick="setRole('doctor')">
+                    Doctor
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" placeholder="Jane Cooper" required />
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="At least 6 characters" minlength="6" required />
+            </div>
+
+            <!-- Patient only -->
+            <div id="patientFields">
+                <div class="form-group">
+                    <label for="regAge">Age (optional)</label>
+                    <input type="number" id="regAge" placeholder="25" min="1" max="120" />
+                </div>
+            </div>
+
+            <!-- Doctor only -->
+            <div id="doctorFields" style="display:none;">
+                <div class="form-group">
+                    <label for="regSpecialty">Specialty</label>
+                    <select id="regSpecialty">
+                        <option value="General Physician">General Physician</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Emergency Medicine">Emergency Medicine</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;" id="registerBtn">
+                Create Account
+            </button>
+        </form>
+
+        <div class="error-box" id="errorBox"></div>
+
+    </div>
+
+</div>
+
+<script src="../js/api.js"></script>
+<script>
+    // If already logged in redirect to right page
+    if (getToken()) {
+        redirectByRole(getRole());
+    }
+
+    let currentRole = "patient";
+
+    function redirectByRole(role) {
+        if (role === "doctor") {
+            window.location.href = "doctor-dashboard.html";
+        } else {
+            window.location.href = "symptom-checker.html";
+        }
+    }
+
+    function showTab(tab) {
+        const isLogin = tab === "login";
+        document.getElementById("loginForm").style.display = isLogin ? "block" : "none";
+        document.getElementById("registerForm").style.display = isLogin ? "none" : "block";
+        document.getElementById("tabLogin").classList.toggle("active", isLogin);
+        document.getElementById("tabRegister").classList.toggle("active", !isLogin);
+        hideError("errorBox");
+    }
+
+    function setRole(role) {
+        currentRole = role;
+        document.getElementById("rolePatient").classList.toggle("active", role === "patient");
+        document.getElementById("roleDoctor").classList.toggle("active", role === "doctor");
+        document.getElementById("patientFields").style.display = role === "patient" ? "block" : "none";
+        document.getElementById("doctorFields").style.display = role === "doctor" ? "block" : "none";
+    }
+
+    async function handleLogin(event) {
+        event.preventDefault();
+        hideError("errorBox");
+        const btn = document.getElementById("loginBtn");
+        btn.disabled = true;
+        btn.textContent = "Signing in...";
+
+        try {
+            const data = await apiFetch("/auth/login", {
+                method: "POST",
+                body: JSON.stringify({
+                    email: document.getElementById("loginEmail").value,
+                    password: document.getElementById("loginPassword").value
+                })
+            });
+            saveSession(data.access_token, data.role);
+            redirectByRole(data.role);
+        } catch (err) {
+            showError("errorBox", err.message);
+            btn.disabled = false;
+            btn.textContent = "Sign In";
+        }
+    }
+
+    async function handleRegister(event) {
+        event.preventDefault();
+        hideError("errorBox");
+        const btn = document.getElementById("registerBtn");
+        btn.disabled = true;
+        btn.textContent = "Creating account...";
+
+        const payload = {
+            name: document.getElementById("regName").value,
+            email: document.getElementById("regEmail").value,
+            password: document.getElementById("regPassword").value,
+            role: currentRole
+        };
+
+        if (currentRole === "patient") {
+            const age = document.getElementById("regAge").value;
+            if (age) payload.age = parseInt(age);
+        } else {
+            payload.specialty = document.getElementById("regSpecialty").value;
+        }
+
+        try {
+            const data = await apiFetch("/auth/register", {
+                method: "POST",
+                body: JSON.stringify(payload)
+            });
+            saveSession(data.access_token, data.role);
+            redirectByRole(data.role);
+        } catch (err) {
+            showError("errorBox", err.message);
+            btn.disabled = false;
+            btn.textContent = "Create Account";
+        }
+    }
+</script>
+
+</body>
+</html>
